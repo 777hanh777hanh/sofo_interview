@@ -26,6 +26,8 @@ interface ICardItem {
 
 const Card = ({ className = "", ...props }: ICardItem) => {
   const [isBuy, setIsBuy] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   const percentDiscount = ((props.price_discount ?? 0) / props.price) * 100;
 
@@ -39,7 +41,34 @@ const Card = ({ className = "", ...props }: ICardItem) => {
     <div className={cn("", className)}>
       <div className="flex items-center justify-between">
         <div className="flex flex-col items-center gap-2">
-          <img className="w-full" src={props.image} alt={props.name} />
+          {/* Image with skeleton */}
+          <div className="relative aspect-square w-full">
+            {!imageLoaded && !imageError && (
+              <div className="absolute inset-0 flex animate-pulse items-center justify-center rounded-lg bg-gray-200">
+                <div className="h-8 w-8 rounded-full bg-gray-300"></div>
+              </div>
+            )}
+            <img
+              className={`h-full w-full rounded-lg object-cover transition-opacity duration-300 ${
+                imageLoaded ? "opacity-100" : "opacity-0"
+              }`}
+              src={props.image}
+              alt={props.name}
+              onLoad={() => setImageLoaded(true)}
+              onError={() => {
+                setImageError(true);
+                setImageLoaded(true);
+              }}
+            />
+            {imageError && (
+              <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-gray-100">
+                <div className="p-4 text-center text-sm text-gray-400">
+                  <div className="mx-auto mb-2 h-8 w-8 rounded bg-gray-300"></div>
+                  Không thể tải ảnh
+                </div>
+              </div>
+            )}
+          </div>
 
           {/* Info Card */}
           <div className="flex flex-col gap-2 px-4 py-2.5 lg:gap-4 lg:px-6 lg:py-4">

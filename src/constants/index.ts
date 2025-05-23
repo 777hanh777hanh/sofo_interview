@@ -35,3 +35,22 @@ export const LEGAL_LINKS = [
     path: "/faq",
   },
 ];
+
+export const MENU = [
+  {
+    label: "Về chúng tôi",
+    path: "/about",
+  },
+  {
+    label: "Bài viết",
+    path: "/article",
+  },
+  {
+    label: "Catalog",
+    path: "/catalog",
+  },
+  {
+    label: "Liên hệ",
+    path: "/contact",
+  },
+];

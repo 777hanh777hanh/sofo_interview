@@ -1,3 +1,23 @@
 {
-  "plugins": ["prettier-plugin-tailwindcss"]
+	"plugins": ["prettier-plugin-tailwindcss", "prettier-plugin-classnames"],
+	"arrowParens": "always",
+	"bracketSameLine": false,
+	"bracketSpacing": true,
+	"embeddedLanguageFormatting": "auto",
+	"htmlWhitespaceSensitivity": "css",
+	"insertPragma": false,
+	"jsxSingleQuote": true,
+	"printWidth": 80,
+	"quoteProps": "as-needed",
+	"requirePragma": false,
+	"semi": true,
+	"singleQuote": true,
+	"tabWidth": 4,
+	"trailingComma": "none",
+	"editor.formatOnSave": true,
+	"proseWrap": "always",
+	"requireConfig": false,
+	"useTabs": true,
+	"jsxBracketSameLine": false,
+	"vueIndentScriptAndStyle": true
 }
