@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@layer base {
+  button,
+  input,
+  [tabindex]:focus {
+    @apply border-none ring-0 outline-none;
+  }
+}
+
+.drag-none {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+
+  @apply select-none;
+}
