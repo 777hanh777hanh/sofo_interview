@@ -1,11 +1,10 @@
-import { Link } from "react-router-dom";
+import Default from "@/layouts/Default";
 
 const HomePage = () => {
   return (
-    <>
+    <Default>
       <h1>HomePage</h1>
-      <Link to="/about">About</Link>
-    </>
+    </Default>
   );
 };
 

@@ -7,6 +7,9 @@
     @apply border-none ring-0 outline-none;
   }
 }
+body {
+  @apply bg-[#F4F6F8];
+}
 
 .drag-none {
   -webkit-user-drag: none;
