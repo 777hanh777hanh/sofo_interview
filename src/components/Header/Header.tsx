@@ -79,7 +79,7 @@ const Header = () => {
 	}, [isCartHovered]);
 
 	return (
-		<>
+		<div className='bg-white pb-2.5 xl:pb-3'>
 			<Welcome />
 
 			{/* Header */}
@@ -168,7 +168,7 @@ const Header = () => {
 					/>
 				</div>
 			)}
-		</>
+		</div>
 	);
 };
 
