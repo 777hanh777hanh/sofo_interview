@@ -26,7 +26,7 @@ const Default = ({ children }: { children: React.ReactNode }) => {
 
       <button
         type="button"
-        className={`fixed right-10 bottom-10 cursor-pointer rounded-full border-1 border-solid border-[#013065] bg-transparent p-2 ${
+        className={`fixed right-12 bottom-20 z-50 cursor-pointer rounded-full border-1 border-solid border-[#013065] bg-transparent p-2 md:right-8 md:bottom-14 ${
           isGoTop ? styles.showOnTop : styles.hideOnTop
         } `}
         onClick={() => smoothScrollToTop()}
