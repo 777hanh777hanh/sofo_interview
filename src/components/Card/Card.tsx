@@ -135,7 +135,10 @@ const Card = ({ className = '', ...props }: ICardItem) => {
 									isBuy ? '' : 'invisible'
 								)}
 							>
-								<button className='font-secondary w-full rounded-lg bg-[#E6F1FF] py-1 text-[#025FCA] select-none'>
+								<button
+									className='cursor-pointer font-secondary w-full rounded-lg bg-[#E6F1FF] py-1 text-[#025FCA]
+										select-none'
+								>
 									Mua ngay
 								</button>
 							</div>

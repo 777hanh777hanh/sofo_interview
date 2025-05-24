@@ -84,3 +84,60 @@ export const FEATURES = [
 		icon: boxIcon
 	}
 ];
+
+export const MOCK_PRODUCTS = [
+	{
+		id: 1,
+		name: 'Lọc gió động cơ Air Filter - Chevrolet Colorado, Trailblazer, Dmax',
+		price: 329000,
+		price_discount: 299000,
+		image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=300&fit=crop',
+		is_hot_price: true,
+		isBuy: true
+	},
+	{
+		id: 2,
+		name: 'Lọc gió động cơ Air Filter - Chevrolet Colorado, Trailblazer',
+		price: 329000,
+		price_discount: 299000,
+		image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=300&h=300&fit=crop',
+		is_hot_price: true,
+		isBuy: true
+	},
+	{
+		id: 3,
+		name: 'Lọc gió động cơ Air Filter - Chevrolet Colorado, Trailblazer, Dmax, Isuzu',
+		price: 329000,
+		price_discount: 299000,
+		image: 'https://images.unsplash.com/photo-1494976040749-cf2770e13be4?w=300&h=300&fit=crop',
+		is_hot_price: true,
+		isBuy: true
+	},
+	{
+		id: 4,
+		name: 'Lọc gió động cơ Air Filter - Chevrolet Colorado',
+		price: 329000,
+		price_discount: 299000,
+		image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=300&h=300&fit=crop',
+		is_hot_price: true,
+		isBuy: true
+	},
+	{
+		id: 5,
+		name: 'Lọc gió động cơ Air Filter - Chevrolet Colorado, Trailblazer ORU',
+		price: 329000,
+		price_discount: 299000,
+		image: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=300&h=300&fit=crop',
+		is_hot_price: true,
+		isBuy: true
+	},
+	{
+		id: 6,
+		name: 'Lọc gió động cơ Air Filter - Premium Series',
+		price: 399000,
+		price_discount: 349000,
+		image: 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=300&h=300&fit=crop',
+		is_hot_price: true,
+		isBuy: true
+	}
+];

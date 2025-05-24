@@ -2,6 +2,7 @@ import Default from '@/layouts/Default';
 import CallToAction from '@/components/CallToAction';
 import Breadcrumb from '@/components/Breadcrumb';
 import Features from '@/components/Features';
+import Hero from '@/components/Hero';
 
 const HomePage = () => {
 	return (
@@ -17,6 +18,7 @@ const HomePage = () => {
 				/>
 
 				{/* Hero */}
+				<Hero />
 
 				{/* Content */}
 
