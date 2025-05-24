@@ -1,11 +1,10 @@
 import { cn } from '@/utils/cn';
-import Icon from '@/components/ui/Icon';
 import { useState } from 'react';
 
 interface CategoryItem {
 	id: string;
 	label: string;
-	iconName: string;
+	image: string;
 	isActive?: boolean;
 }
 
@@ -22,49 +21,49 @@ const CategoryMenu = ({
 		{
 			id: 'oil-filter',
 			label: 'Bộ Lọc Dầu',
-			iconName: '',
+			image: 'https://picsum.photos/200/300',
 			isActive: false
 		},
 		{
 			id: 'air-filter',
 			label: 'Bộ Lọc Không Khí',
-			iconName: '',
+			image: 'https://picsum.photos/200/301',
 			isActive: false
 		},
 		{
 			id: 'fuel-filter',
 			label: 'Bộ Lọc Nhiên Liệu',
-			iconName: '',
+			image: 'https://picsum.photos/200/302',
 			isActive: false
 		},
 		{
 			id: 'cabin-filter',
 			label: 'Bộ Lọc Trong Cabin',
-			iconName: '',
+			image: 'https://picsum.photos/200/303',
 			isActive: false
 		},
 		{
 			id: 'air-filter-2',
 			label: 'Bộ Lọc Không Khí',
-			iconName: '',
+			image: 'https://picsum.photos/200/304',
 			isActive: false
 		},
 		{
 			id: 'cabin-filter-2',
 			label: 'Bộ Lọc Trong Cabin',
-			iconName: '',
+			image: 'https://picsum.photos/200/305',
 			isActive: false
 		},
 		{
 			id: 'fuel-filter-2',
 			label: 'Bộ Lọc Nhiên Liệu',
-			iconName: '',
+			image: 'https://picsum.photos/200/306',
 			isActive: false
 		},
 		{
 			id: 'air-filter-3',
 			label: 'Bộ Lọc Không Khí',
-			iconName: '',
+			image: 'https://picsum.photos/200/307',
 			isActive: false
 		}
 	];
@@ -102,6 +101,11 @@ const CategoryMenu = ({
 									: ''
 							)}
 						>
+							<img
+								src={category.image}
+								alt={category.label}
+								className='w-8 h-8 xl:w-10 xl:h-10 object-contain'
+							/>
 							<span className='flex-1'>{category.label}</span>
 							<span>
 								<svg

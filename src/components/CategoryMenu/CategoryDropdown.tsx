@@ -5,6 +5,7 @@ import Card from '@/components/Card/Card';
 import { CategoryService } from '@/services/categoryService';
 import type { FilterResponse } from '@/types/product';
 import { useProductLimit } from '@/hooks/useResponsive';
+import { Link } from 'react-router';
 
 interface CategoryDropdownProps {
 	isOpen: boolean;
@@ -253,15 +254,17 @@ const CategoryDropdown = ({
 												<button
 													key={brand.id}
 													className='flex items-center justify-between p-4 bg-white rounded-lg border border-gray-200
-														hover:border-blue-300 hover:bg-blue-50 transition-colors duration-200'
+														hover:border-blue-300 hover:bg-blue-50 transition-colors duration-200
+														cursor-pointer'
 												>
-													<div className='text-left'>
-														<p className='font-medium text-gray-900'>
+													<div className='text-left flex items-center gap-2'>
+														<img
+															src={brand.logo}
+															alt={brand.name}
+															className='w-8 h-8 lg:w-12 lg:h-12 xl:w-14 xl:h-14 object-contain'
+														/>
+														<p className='text-[#1C252E] text-base font-semibold leading-6 tracking-[0.32px]'>
 															{brand.name}
-														</p>
-														<p className='text-sm text-gray-500'>
-															{brand.productCount}{' '}
-															sản phẩm
 														</p>
 													</div>
 												</button>
@@ -278,9 +281,10 @@ const CategoryDropdown = ({
 											<h3 className='font-semibold text-gray-900 text-lg'>
 												Sản phẩm bán chạy
 											</h3>
-											<button
+											<Link
+												to={`/category/${selectedCategory}`}
 												className='flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium text-sm
-													transition-colors'
+													transition-colors cursor-pointer'
 											>
 												Xem tất cả
 												<svg
@@ -297,7 +301,7 @@ const CategoryDropdown = ({
 														fill='#0373F3'
 													/>
 												</svg>
-											</button>
+											</Link>
 										</div>
 
 										{/* Products Grid */}

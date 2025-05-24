@@ -3,15 +3,79 @@ import { PRODUCT_PLACEHOLDERS } from '@/utils/placeholder';
 
 // Fake data - có thể dễ dàng thay thế bằng API calls
 const FAKE_BRANDS: Brand[] = [
-	{ id: 'toyota', name: 'Toyota', productCount: 156 },
-	{ id: 'honda', name: 'Honda', productCount: 134 },
-	{ id: 'hyundai', name: 'Hyundai', productCount: 98 },
-	{ id: 'mazda', name: 'Mazda', productCount: 76 },
-	{ id: 'kia', name: 'Kia', productCount: 65 },
-	{ id: 'nissan', name: 'Nissan', productCount: 54 },
-	{ id: 'mitsubishi', name: 'Mitsubishi', productCount: 43 },
-	{ id: 'subaru', name: 'Subaru', productCount: 32 },
-	{ id: 'suzuki', name: 'Suzuki', productCount: 28 }
+	{
+		id: 'toyota',
+		name: 'Toyota',
+		productCount: 156,
+		logo: `https://picsum.photos/${Math.floor(Math.random() * 1000)}`
+	},
+	{
+		id: 'honda',
+		name: 'Honda',
+		productCount: 134,
+		logo: `https://picsum.photos/${Math.floor(Math.random() * 1000)}`
+	},
+	{
+		id: 'hyundai',
+		name: 'Hyundai',
+		productCount: 98,
+		logo: `https://picsum.photos/${Math.floor(Math.random() * 1000)}`
+	},
+	{
+		id: 'mazda',
+		name: 'Mazda',
+		productCount: 76,
+		logo: `https://picsum.photos/${Math.floor(Math.random() * 1000)}`
+	},
+	{
+		id: 'kia',
+		name: 'Kia',
+		productCount: 65,
+		logo: `https://picsum.photos/${Math.floor(Math.random() * 1000)}`
+	},
+	{
+		id: 'nissan',
+		name: 'Nissan',
+		productCount: 54,
+		logo: `https://picsum.photos/${Math.floor(Math.random() * 1000)}`
+	},
+	{
+		id: 'mitsubishi',
+		name: 'Mitsubishi',
+		productCount: 43,
+		logo: `https://picsum.photos/${Math.floor(Math.random() * 1000)}`
+	},
+	{
+		id: 'subaru',
+		name: 'Subaru',
+		productCount: 32,
+		logo: `https://picsum.photos/${Math.floor(Math.random() * 1000)}`
+	},
+	{
+		id: 'suzuki',
+		name: 'Suzuki',
+		productCount: 28,
+		logo: `https://picsum.photos/${Math.floor(Math.random() * 1000)}`
+	},
+	// 3 brands mới để test oil-filter (đã bỏ Ford, Volkswagen, BMW)
+	{
+		id: 'mercedes',
+		name: 'Mercedes-Benz',
+		productCount: 85,
+		logo: `https://picsum.photos/${Math.floor(Math.random() * 1000)}`
+	},
+	{
+		id: 'audi',
+		name: 'Audi',
+		productCount: 67,
+		logo: `https://picsum.photos/${Math.floor(Math.random() * 1000)}`
+	},
+	{
+		id: 'lexus',
+		name: 'Lexus',
+		productCount: 45,
+		logo: `https://picsum.photos/${Math.floor(Math.random() * 1000)}`
+	}
 ];
 
 const FAKE_PRODUCTS: Product[] = [
@@ -90,6 +154,64 @@ const FAKE_PRODUCTS: Product[] = [
 		is_best_seller: true,
 		brand: 'Honda',
 		categoryId: 'fuel-filter'
+	},
+	// Thêm oil-filter products để test scroll (đã bỏ Ford, Volkswagen, BMW)
+	{
+		id: 12,
+		name: 'Lọc dầu chính hãng - Mercedes C-Class',
+		price: 599000,
+		image: PRODUCT_PLACEHOLDERS[5],
+		is_trending: true,
+		brand: 'Mercedes-Benz',
+		categoryId: 'oil-filter'
+	},
+	{
+		id: 13,
+		name: 'Lọc dầu sport - Audi A4',
+		price: 479000,
+		price_discount: 429000,
+		image: PRODUCT_PLACEHOLDERS[0],
+		is_new: true,
+		brand: 'Audi',
+		categoryId: 'oil-filter'
+	},
+	{
+		id: 14,
+		name: 'Lọc dầu luxury - Lexus ES',
+		price: 559000,
+		image: PRODUCT_PLACEHOLDERS[1],
+		is_best_seller: true,
+		brand: 'Lexus',
+		categoryId: 'oil-filter'
+	},
+	{
+		id: 15,
+		name: 'Lọc dầu tiêu chuẩn - Toyota Corolla',
+		price: 289000,
+		price_discount: 249000,
+		image: PRODUCT_PLACEHOLDERS[2],
+		is_hot_price: true,
+		brand: 'Toyota',
+		categoryId: 'oil-filter'
+	},
+	{
+		id: 16,
+		name: 'Lọc dầu performance - Honda CR-V',
+		price: 359000,
+		image: PRODUCT_PLACEHOLDERS[3],
+		is_featured: true,
+		brand: 'Honda',
+		categoryId: 'oil-filter'
+	},
+	{
+		id: 17,
+		name: 'Lọc dầu eco - Hyundai Tucson',
+		price: 309000,
+		price_discount: 279000,
+		image: PRODUCT_PLACEHOLDERS[4],
+		is_sale: true,
+		brand: 'Hyundai',
+		categoryId: 'oil-filter'
 	}
 ];
 
