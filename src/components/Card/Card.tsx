@@ -29,7 +29,8 @@ const Card = ({ className = '', ...props }: ICardItem) => {
 	const [imageLoaded, setImageLoaded] = useState(false);
 	const [imageError, setImageError] = useState(false);
 
-	const percentDiscount = ((props.price_discount ?? 0) / props.price) * 100;
+	const percentDiscount =
+		100 - Math.floor(((props.price_discount ?? 0) / props.price) * 100);
 
 	useEffect(() => {
 		if (props.isBuy) {
@@ -122,8 +123,8 @@ const Card = ({ className = '', ...props }: ICardItem) => {
 										)
 									}}
 								></p>
-								<p className='text-[#B71D18 text-sm font-normal'>
-									{percentDiscount.toFixed(0)} %
+								<p className='text-[#B71D18] text-sm font-normal'>
+									-{percentDiscount.toFixed(0)} %
 								</p>
 							</div>
 
