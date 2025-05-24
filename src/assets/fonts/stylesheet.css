@@ -1,27 +1,31 @@
 @font-face {
-  font-family: "Epilogue";
-  src: url("./Epilogue-VariableFont_wght.ttf") format("truetype-variations");
-  font-display: swap;
+	font-family: 'Epilogue';
+	src: url('./Epilogue-VariableFont_wght.ttf') format('truetype-variations');
+	font-display: swap;
+	font-weight: 100 900;
 }
 
 @font-face {
-  font-family: "Epilogue";
-  src: url("./Epilogue-Italic-VariableFont_wght.ttf")
-    format("truetype-variations");
-  font-style: italic;
-  font-display: swap;
+	font-family: 'Epilogue';
+	src: url('./Epilogue-Italic-VariableFont_wght.ttf')
+		format('truetype-variations');
+	font-style: italic;
+	font-display: swap;
+	font-weight: 100 900;
 }
 
 @font-face {
-  font-family: "Public-Sans";
-  src: url("./PublicSans-VariableFont_wght.ttf") format("truetype-variations");
-  font-display: swap;
+	font-family: 'Public-Sans';
+	src: url('./PublicSans-VariableFont_wght.ttf') format('truetype-variations');
+	font-display: swap;
+	font-weight: 100 900;
 }
 
 @font-face {
-  font-family: "Public-Sans";
-  src: url("./PublicSans-Italic-VariableFont_wght.ttf")
-    format("truetype-variations");
-  font-style: italic;
-  font-display: swap;
+	font-family: 'Public-Sans';
+	src: url('./PublicSans-Italic-VariableFont_wght.ttf')
+		format('truetype-variations');
+	font-style: italic;
+	font-display: swap;
+	font-weight: 100 900;
 }
