@@ -20,7 +20,7 @@ const FAKE_PRODUCTS: Product[] = [
 		name: 'Lọc gió động cơ Air Filter - Chevrolet Captiva',
 		price: 399000,
 		price_discount: 299000,
-		image: PRODUCT_PLACEHOLDERS[0],
+		image: `https://picsum.photos/${Math.floor(Math.random() * 1000)}`,
 		is_hot_price: true,
 		brand: 'Toyota',
 		categoryId: 'air-filter'
@@ -29,7 +29,7 @@ const FAKE_PRODUCTS: Product[] = [
 		id: 2,
 		name: 'Lọc dầu Oil Filter - Honda Civic',
 		price: 299000,
-		image: PRODUCT_PLACEHOLDERS[1],
+		image: `https://picsum.photos/${Math.floor(Math.random() * 1000)}`,
 		is_best_seller: true,
 		brand: 'Honda',
 		categoryId: 'oil-filter'

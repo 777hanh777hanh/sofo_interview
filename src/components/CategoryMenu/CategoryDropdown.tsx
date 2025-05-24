@@ -33,7 +33,7 @@ const CategoryDropdown = ({
 		useState<string>('oil-filter');
 	const productLimit = useProductLimit();
 
-	// Calculate position and height
+	// Calculate position and height with improved responsiveness
 	const updateDropdownPosition = useCallback(() => {
 		if (triggerRef.current) {
 			const triggerRect = triggerRef.current.getBoundingClientRect();
@@ -45,34 +45,70 @@ const CategoryDropdown = ({
 				top: triggerRect.bottom,
 				left: 0,
 				width: '100vw',
-				height: `${Math.max(availableHeight - 10, 200)}px`, // 10px margin, min 200px
+				maxHeight: `${Math.max(availableHeight - 10, 200)}px`, // Use maxHeight instead of height
+				minHeight: '200px', // Ensure minimum reasonable height
 				zIndex: 50
 			});
 		}
 	}, [triggerRef]);
 
-	// Update position on open and scroll
+	// Update position on open and scroll with improved tracking
 	useEffect(() => {
 		if (isOpen) {
 			updateDropdownPosition();
 
-			// Listen to scroll events to update position
+			// Enhanced scroll and resize listeners for better position tracking
 			const handleScroll = () => {
 				updateDropdownPosition();
 			};
 
-			// Prevent body scroll when dropdown is open
-			const originalOverflow = document.body.style.overflow;
-			document.body.style.overflow = 'hidden';
+			const handleResize = () => {
+				updateDropdownPosition();
+			};
 
-			window.addEventListener('scroll', handleScroll, true);
-			window.addEventListener('resize', updateDropdownPosition);
+			// Explicitly ensure body can scroll
+			const originalOverflow = document.body.style.overflow;
+			const originalPosition = document.body.style.position;
+
+			// Lock body scroll completely when dropdown is open
+			document.body.style.overflow = 'hidden';
+			document.body.style.position = 'fixed';
+			document.body.style.top = `-${window.scrollY}px`;
+			document.body.style.width = '100%';
+
+			// Use passive listeners for better performance
+			window.addEventListener('scroll', handleScroll, {
+				passive: true,
+				capture: true
+			});
+			window.addEventListener('resize', handleResize, { passive: true });
+
+			// Also listen to document scroll for better tracking
+			document.addEventListener('scroll', handleScroll, {
+				passive: true,
+				capture: true
+			});
 
 			return () => {
-				// Restore body scroll
+				// Restore original styles and scroll position
+				const scrollY = document.body.style.top;
 				document.body.style.overflow = originalOverflow;
-				window.removeEventListener('scroll', handleScroll, true);
-				window.removeEventListener('resize', updateDropdownPosition);
+				document.body.style.position = originalPosition;
+				document.body.style.top = '';
+				document.body.style.width = '';
+
+				// Restore scroll position
+				if (scrollY) {
+					window.scrollTo(0, parseInt(scrollY || '0') * -1);
+				}
+
+				window.removeEventListener('scroll', handleScroll, {
+					capture: true
+				});
+				window.removeEventListener('resize', handleResize);
+				document.removeEventListener('scroll', handleScroll, {
+					capture: true
+				});
 			};
 		}
 	}, [isOpen, updateDropdownPosition]);
@@ -136,12 +172,59 @@ const CategoryDropdown = ({
 		<div
 			ref={dropdownRef}
 			style={dropdownStyle}
-			className={cn('bg-gray-50 shadow-lg overflow-hidden', className)}
+			className={cn(
+				'bg-gray-50 shadow-lg overflow-hidden flex flex-col',
+				className
+			)}
 			onMouseEnter={onMouseEnter}
 			onMouseLeave={onMouseLeave}
 		>
-			{/* Content container with scroll - now uses full calculated height */}
-			<div className='h-full overflow-y-auto'>
+			{/* Content container with proper scroll containment */}
+			<div
+				className='overflow-y-auto overflow-x-hidden dropdown-scroll-container flex-1'
+				style={{
+					height: '100%',
+					maxHeight: '100%',
+					overscrollBehavior: 'contain',
+					overscrollBehaviorY: 'contain',
+					scrollBehavior: 'smooth',
+					WebkitOverflowScrolling: 'touch'
+				}}
+				onWheel={(e) => {
+					const target = e.currentTarget;
+
+					const isScrollable =
+						target.scrollHeight > target.clientHeight;
+
+					if (isScrollable) {
+						e.preventDefault();
+						e.stopPropagation();
+
+						const isScrollingDown = e.deltaY > 0;
+						const isAtTop = target.scrollTop === 0;
+						const isAtBottom =
+							target.scrollTop + target.clientHeight >=
+							target.scrollHeight - 1;
+
+						if (
+							(isScrollingDown && !isAtBottom) ||
+							(!isScrollingDown && !isAtTop)
+						) {
+							target.scrollTop += e.deltaY;
+						}
+					}
+				}}
+				onScroll={(e) => {}}
+				onTouchMove={(e) => {
+					const target = e.currentTarget;
+					const isScrollable =
+						target.scrollHeight > target.clientHeight;
+
+					if (isScrollable) {
+						e.stopPropagation();
+					}
+				}}
+			>
 				<div className='container mx-auto py-3'>
 					<div className='grid grid-cols-1 lg:grid-cols-4 gap-6'>
 						{/* Categories Grid - Left side */}
@@ -165,10 +248,6 @@ const CategoryDropdown = ({
 								<>
 									{/* Brands Grid */}
 									<div>
-										<h3 className='font-semibold text-gray-900 text-lg mb-4'>
-											Thương hiệu cho{' '}
-											{filterData.category.name}
-										</h3>
 										<div className='grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4'>
 											{filterData.brands.map((brand) => (
 												<button
@@ -185,22 +264,6 @@ const CategoryDropdown = ({
 															sản phẩm
 														</p>
 													</div>
-													<svg
-														width='6'
-														height='10'
-														viewBox='0 0 6 10'
-														fill='none'
-														xmlns='http://www.w3.org/2000/svg'
-														className='text-gray-400'
-													>
-														<path
-															d='M1 1L5 5L1 9'
-															stroke='currentColor'
-															strokeWidth='1.5'
-															strokeLinecap='round'
-															strokeLinejoin='round'
-														/>
-													</svg>
 												</button>
 											))}
 										</div>
@@ -221,18 +284,17 @@ const CategoryDropdown = ({
 											>
 												Xem tất cả
 												<svg
-													width='6'
-													height='10'
-													viewBox='0 0 6 10'
-													fill='none'
 													xmlns='http://www.w3.org/2000/svg'
+													width='21'
+													height='20'
+													viewBox='0 0 21 20'
+													fill='none'
 												>
 													<path
-														d='M1 1L5 5L1 9'
-														stroke='currentColor'
-														strokeWidth='1.5'
-														strokeLinecap='round'
-														strokeLinejoin='round'
+														fill-rule='evenodd'
+														clip-rule='evenodd'
+														d='M6.12916 3.69204C6.39123 3.4674 6.7858 3.49775 7.01044 3.75983L12.0104 9.59316C12.2111 9.82722 12.2111 10.1726 12.0104 10.4067L7.01044 16.24C6.7858 16.5021 6.39123 16.5324 6.12916 16.3078C5.86708 16.0831 5.83673 15.6886 6.06136 15.4265L10.7127 9.99991L6.06136 4.57332C5.83673 4.31124 5.86708 3.91668 6.12916 3.69204ZM9.46265 3.69213C9.72473 3.46749 10.1193 3.49784 10.3439 3.75992L15.3439 9.59325C15.5446 9.82731 15.5446 10.1727 15.3439 10.4067L10.3439 16.2401C10.1193 16.5022 9.72473 16.5325 9.46265 16.3079C9.20057 16.0832 9.17022 15.6887 9.39486 15.4266L14.0462 10L9.39486 4.57341C9.17022 4.31133 9.20057 3.91677 9.46265 3.69213Z'
+														fill='#0373F3'
 													/>
 												</svg>
 											</button>
@@ -247,25 +309,6 @@ const CategoryDropdown = ({
 														key={product.id}
 														className='bg-white rounded-lg border border-gray-200 hover:shadow-md transition-shadow'
 														{...product}
-													/>
-												))}
-										</div>
-									</div>
-
-									{/* Extra content để test scroll */}
-									<div className='space-y-4'>
-										<h3 className='font-semibold text-gray-900 text-lg'>
-											Các sản phẩm khác
-										</h3>
-										<div className='grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
-											{filterData.hotProducts
-												.slice(0, productLimit * 2) // More products để test scroll
-												.map((product, index) => (
-													<Card
-														key={`extra-${product.id}-${index}`}
-														className='bg-white rounded-lg border border-gray-200 hover:shadow-md transition-shadow'
-														{...product}
-														name={`${product.name} - Phiên bản ${index + 1}`}
 													/>
 												))}
 										</div>
