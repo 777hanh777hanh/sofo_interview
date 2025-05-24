@@ -1,6 +1,7 @@
 import Default from '@/layouts/Default';
 import CallToAction from '@/components/CallToAction';
 import Breadcrumb from '@/components/Breadcrumb';
+import Features from '@/components/Features';
 
 const HomePage = () => {
 	return (
@@ -20,6 +21,7 @@ const HomePage = () => {
 				{/* Content */}
 
 				{/* Features */}
+				<Features />
 			</div>
 			{/* call to action */}
 			<CallToAction />

@@ -24,14 +24,17 @@ const Breadcrumb = ({
 		});
 
 	return (
-		<div className='font-primary flex items-center gap-2 text-sm text-[#919EAB]'>
+		<div className='flex items-center gap-2 text-sm text-[#919EAB]'>
 			{!!breadcrumbItems?.length &&
 				breadcrumbItems.map((item, index) => {
 					return (
 						<div key={item.url} className='flex items-center gap-2'>
 							{index < breadcrumbItems.length - 1 && (
 								<>
-									<Link className='select-none' to={item.url}>
+									<Link
+										className='select-none font-primary'
+										to={item.url}
+									>
 										{item.label}
 									</Link>
 									<span className='drag-none'>
@@ -66,7 +69,7 @@ const Breadcrumb = ({
 								</>
 							)}
 							{index === breadcrumbItems.length - 1 && (
-								<span className='text-[#024897] select-none'>
+								<span className='text-[#024897] font-primary select-none'>
 									{item.label}
 								</span>
 							)}

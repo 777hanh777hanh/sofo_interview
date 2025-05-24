@@ -18,7 +18,7 @@ const Default = ({ children }: { children: React.ReactNode }) => {
 
 	return (
 		<>
-			<div className='mx-auto flex min-h-screen flex-col'>
+			<div className='font-primary mx-auto flex min-h-screen flex-col'>
 				<Header />
 				{children}
 				<Footer />
