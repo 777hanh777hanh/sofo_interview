@@ -34,10 +34,29 @@ const CategoryDropdown = ({
 		useState<string>('oil-filter');
 	const productLimit = useProductLimit();
 
-	// Calculate position and height with improved responsiveness
-	const updateDropdownPosition = useCallback(() => {
-		if (triggerRef.current) {
-			const triggerRect = triggerRef.current.getBoundingClientRect();
+	// Update position on open and scroll with improved tracking
+	useEffect(() => {
+		if (isOpen) {
+			// Capture trigger position BEFORE locking scroll
+			const triggerRect = triggerRef.current?.getBoundingClientRect();
+			if (!triggerRect) return;
+
+			// Save current scroll position BEFORE locking
+			const currentScrollY = window.scrollY;
+
+			// Store original styles
+			const originalOverflow = document.body.style.overflow;
+			const originalPosition = document.body.style.position;
+			const originalTop = document.body.style.top;
+			const originalWidth = document.body.style.width;
+
+			// Lock body scroll completely when dropdown is open
+			document.body.style.overflow = 'hidden';
+			document.body.style.position = 'fixed';
+			document.body.style.top = `-${currentScrollY}px`;
+			document.body.style.width = '100%';
+
+			// Now calculate dropdown position using the captured trigger position
 			const viewportHeight = window.innerHeight;
 			const availableHeight = viewportHeight - triggerRect.bottom;
 
@@ -46,36 +65,33 @@ const CategoryDropdown = ({
 				top: triggerRect.bottom,
 				left: 0,
 				width: '100vw',
-				maxHeight: `${Math.max(availableHeight - 10, 200)}px`, // Use maxHeight instead of height
-				minHeight: '200px', // Ensure minimum reasonable height
+				maxHeight: `${Math.max(availableHeight - 10, 200)}px`,
+				minHeight: '200px',
 				zIndex: 50
 			});
-		}
-	}, [triggerRef]);
 
-	// Update position on open and scroll with improved tracking
-	useEffect(() => {
-		if (isOpen) {
-			updateDropdownPosition();
-
-			// Enhanced scroll and resize listeners for better position tracking
+			// Enhanced scroll and resize listeners for position updates
 			const handleScroll = () => {
-				updateDropdownPosition();
+				// Since body is fixed, we don't need to update on scroll
+				// Position is locked when dropdown is open
 			};
 
 			const handleResize = () => {
-				updateDropdownPosition();
+				// Recalculate on resize only
+				if (triggerRef.current) {
+					const newTriggerRect =
+						triggerRef.current.getBoundingClientRect();
+					const newViewportHeight = window.innerHeight;
+					const newAvailableHeight =
+						newViewportHeight - newTriggerRect.bottom;
+
+					setDropdownStyle((prev) => ({
+						...prev,
+						top: newTriggerRect.bottom,
+						maxHeight: `${Math.max(newAvailableHeight - 10, 200)}px`
+					}));
+				}
 			};
-
-			// Explicitly ensure body can scroll
-			const originalOverflow = document.body.style.overflow;
-			const originalPosition = document.body.style.position;
-
-			// Lock body scroll completely when dropdown is open
-			document.body.style.overflow = 'hidden';
-			document.body.style.position = 'fixed';
-			document.body.style.top = `-${window.scrollY}px`;
-			document.body.style.width = '100%';
 
 			// Use passive listeners for better performance
 			window.addEventListener('scroll', handleScroll, {
@@ -92,16 +108,13 @@ const CategoryDropdown = ({
 
 			return () => {
 				// Restore original styles and scroll position
-				const scrollY = document.body.style.top;
 				document.body.style.overflow = originalOverflow;
 				document.body.style.position = originalPosition;
-				document.body.style.top = '';
-				document.body.style.width = '';
+				document.body.style.top = originalTop;
+				document.body.style.width = originalWidth;
 
-				// Restore scroll position
-				if (scrollY) {
-					window.scrollTo(0, parseInt(scrollY || '0') * -1);
-				}
+				// Restore exact scroll position
+				window.scrollTo(0, currentScrollY);
 
 				window.removeEventListener('scroll', handleScroll, {
 					capture: true
@@ -112,7 +125,7 @@ const CategoryDropdown = ({
 				});
 			};
 		}
-	}, [isOpen, updateDropdownPosition]);
+	}, [isOpen, triggerRef]);
 
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
